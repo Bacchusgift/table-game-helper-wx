@@ -1,0 +1,17 @@
+{
+  "pages": [
+    
+    "pages/games/games",
+    "pages/games/wolf/ready/ready",
+    "pages/auth/auth",
+    "pages/games/wolf/createRoom/createRoom",
+    "pages/games/wolf/waitJoin/waitJoin"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "桌游助手",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  }
+}

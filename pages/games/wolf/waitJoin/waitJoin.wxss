@@ -1,0 +1,4 @@
+/* pages/games/wolf/waitJoin/waitJoin.wxss */
+page{
+  padding-bottom: 100rpx;
+}

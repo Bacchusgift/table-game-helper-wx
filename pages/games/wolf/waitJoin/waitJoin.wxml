@@ -1,0 +1,20 @@
+<!--pages/games/wolf/waitJoin/waitJoin.wxml-->
+<image src='/images/Bg.png' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-title text-blue'></text>
+    房间号: 47231
+  </view>
+</view>
+  <view class="cu-form-group margin-top">
+    <view class="grid col-4 grid-square flex-sub">
+      <view class="padding-xs bg-img" style="background-image:url(https://image.weilanwl.com/img/square-2.jpg);">
+        <view class="cu-tag bg-red">
+           房主
+        </view>
+      </view>
+      <view class="padding-xs solids">
+        <text class='icon-add'></text>
+      </view>
+    </view>
+  </view>
