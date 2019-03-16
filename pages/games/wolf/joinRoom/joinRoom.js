@@ -1,5 +1,5 @@
-// pages/games/wolf/wolf.js
-const app = getApp()
+// pages/games/wolf/joinRoom/joinRoom.js
+var app = getApp()
 
 Page({
 
@@ -9,33 +9,17 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    userInfo: {},
-    hasUserInfo: false,
+    userInfo: {
+      nickName:'柚子',
+      avatarUrl:'https://image.weilanwl.com/img/4x3-1.jpg'
+    }
   },
-  /**
-   *  创建游戏房间
-   */
-  createRoom:function() {
-      wx.navigateTo({
-        url: '../createRoom/createRoom',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
-      })
-  },
-  joinRoom: function () {
-    wx.navigateTo({
-      url: '../joinRoom/joinRoom',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

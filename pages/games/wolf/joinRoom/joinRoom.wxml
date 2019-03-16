@@ -1,0 +1,43 @@
+<!--pages/games/wolf/wolf.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-red" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 加入房间
+    </navigator>
+  </view>
+</view>
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-titles text-orange '></text> 等待加入
+  </view>
+</view>
+<view class="cu-card case no-card">
+  <view wx:for="{{1}}" wx:key class="cu-item shadow">
+    <view class='image'>
+      <image src="https://image.weilanwl.com/img/4x3-1.jpg" mode="widthFix"></image>
+      <view class="cu-tag bg-blue">火热等待中</view>
+      <view class='cu-bar bg-shadeBottom'>快来加入我们</view>
+    </view>
+    <view class="cu-list menu menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{userInfo.avatarUrl?userInfo.avatarUrl:'https://image.weilanwl.com/img/square-4.jpg'}});">
+          <!-- <view class="cu-tag badge {{index%2==0?'icon-female bg-pink':'icon-male bg-blue'}}"></view> -->
+        </view>
+        <view class='content flex-sub'>
+          <view class='text-grey'>{{ userInfo.nickName?userInfo.nickName:'狼人一号'}}</view>
+          <view class='text-gray text-sm flex justify-between'>
+            人中之狼
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+  <view class="cu-form-group margin-top">
+    <view class='title'>房间号</view>
+    <input placeholder="请输入房间号" class='radius' confirm-type='go' type="number" name='input'></input>
+  </view>
+<view class="padding-xl">
+<button class='cu-btn block bg-blue margin-tb-sm lg'>加入房间</button>
+</view>

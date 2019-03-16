@@ -28,13 +28,38 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "创建房间",
+					"pathName": "pages/games/wolf/createRoom/createRoom",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "进入狼人杀准备页面",
+					"pathName": "pages/games/wolf/ready/ready",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "加入狼人杀房间页面",
+					"pathName": "pages/games/wolf/joinRoom/joinRoom",
+					"scene": null
+				}
+			]
 		}
 	}
 }

@@ -1,11 +1,11 @@
 {
   "pages": [
-    
     "pages/games/games",
     "pages/games/wolf/ready/ready",
     "pages/auth/auth",
     "pages/games/wolf/createRoom/createRoom",
-    "pages/games/wolf/waitJoin/waitJoin"
+    "pages/games/wolf/waitJoin/waitJoin",
+    "pages/games/wolf/joinRoom/joinRoom"
   ],
   "window": {
     "backgroundTextStyle": "light",
