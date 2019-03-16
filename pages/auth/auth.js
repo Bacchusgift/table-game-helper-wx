@@ -9,7 +9,9 @@ Page({
     motto: '享受朋友在一起的时光吧 !',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    loadModal:false,
+    openSettingBtn:false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -41,6 +43,9 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+        },
+        fail:res=>{
+          console.log("getUserInfo fail res:"+ res)
         }
       })
     }
@@ -50,12 +55,51 @@ Page({
   },
   getUserInfo: function(e) {
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-     
+    if (e.detail.userInfo){
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+      clearTimeout(timeout)
+      this.setData({
+        loadModal: true
+      })
+      var timeout = setTimeout(() => {
+        this.setData({
+          loadModal: false
+        })
+        wx.redirectTo({
+          url: '../games/games',
+        })
+      }, 1000)
+    }else{
+      //强制用户设置授权
+      this.setData({
+        openSettingBtn:true
+      })
+    } 
+    
+  },
+  openSetting:function(e){
+    
+    wx.openSetting({
+      success: res=> {
+        console.log(res.authSetting)
+        wx.getUserInfo({
+          success: res => {
+            this.setData({
+              openSettingBtn: false,
+              hasUserInfo: true,
+              userInfo: res.userInfo
+            })           
+          }
+        })
+       
+      },
+      fail: function(res) {},
+      complete: function(res) {},
     })
-    console.log("跳转")
   }
+
 })

@@ -10,17 +10,20 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     userInfo: {
-      nickName:'柚子',
-      avatarUrl:'https://image.weilanwl.com/img/4x3-1.jpg'
-    }
+    },
+    roomId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+   
+    this.setData({
+        userInfo: app.globalData.userInfo 
+    })
   },
+ 
 
   /**
    * 生命周期函数--监听页面初次渲染完成

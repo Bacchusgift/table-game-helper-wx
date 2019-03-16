@@ -10,6 +10,11 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if(res.code){
+          console.log("拿到了code: "+ res.code)
+        } 
+      },
+      fail:res =>{
         
       }
     })
@@ -28,6 +33,11 @@ App({
                 this.userInfoReadyCallback(res)
               }
             }
+          })
+        } else {
+          console.log('没有授权')
+          wx.redirectTo({
+            url: '/pages/auth/auth',
           })
         }
       }
