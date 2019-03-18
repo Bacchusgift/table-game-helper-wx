@@ -1,6 +1,15 @@
 // pages/games/wolf/createRoom/createRoom.js
 const app = getApp()
 Page({
+  
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // var innerAudioContext = wx.createInnerAudioContext()
+    // innerAudioContext.src = "https://autowired.oss-cn-hangzhou.aliyuncs.com/sound/start.mp3"
+    // innerAudioContext.play()
+  },
 
   /**
    * 页面的初始数据
@@ -13,6 +22,7 @@ Page({
     list: [],
     god:false,
     syncVoice:true,
+    userInfo:app.globalData.userInfo,
     role:{
        'wolf':{
         title: '狼人',
@@ -148,69 +158,30 @@ Page({
     }
   },
   createRoom: function(e){
+    
+
+    wx.request({
+      url: app.api +"/room/createRoom",
+      method:"POST",
+      data:{
+        size: this.data.index,
+        gameId:1,
+        playerList:[
+          wx.getStorageInfoSync('openid')
+        ],
+        owner: wx.getStorageInfoSync('openid')
+      },
+      success:res=>{
+        console.log(res)
+      }
+    })
+
+
     wx.navigateTo({
       url: '../waitJoin/waitJoin',
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // var innerAudioContext = wx.createInnerAudioContext()
-    // innerAudioContext.src = "https://autowired.oss-cn-hangzhou.aliyuncs.com/sound/start.mp3"
-    // innerAudioContext.play()
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

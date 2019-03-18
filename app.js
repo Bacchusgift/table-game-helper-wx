@@ -5,13 +5,30 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if(res.code){
           console.log("拿到了code: "+ res.code)
+          wx.request({
+            url: this.api+'/user/wxlogin',
+            data:{
+              "js_code":res.code
+            },
+            success: res =>{
+              console.log(res)
+              wx.setStorage({
+                key: 'openid',
+                data: res.data.data.openid,
+              })
+              wx.setStorage({
+                key: 'userkey',
+                data: res.data.data.userkey,
+              })
+            }
+          })
+          
         } 
       },
       fail:res =>{
@@ -27,6 +44,15 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
+              wx.request({
+                url: this.api + '/user/setUserInfo/' + wx.getStorageSync("openid"),
+                method:"post",
+                data:res.userInfo,
+                success:res=>{
+                  console.log(res)
+                }
+              })
+              console.log(res)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -51,6 +77,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
-  }
+    userInfo: null,
+    
+  },
+  api: "http://localhost:10085"
 })
