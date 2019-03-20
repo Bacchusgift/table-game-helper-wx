@@ -3,21 +3,22 @@
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
     <text class='icon-title text-blue'></text>
-    房间号: 47231
+    房间号: {{roomId}}
   </view>
 </view>
   <view class="cu-form-group margin-top">
-    <view class="grid col-4 grid-square flex-sub">
-      <view class="padding-xs bg-img" style="background-image:url(https://image.weilanwl.com/img/square-2.jpg);">
-        <view class="cu-tag bg-red">
+    <view class="grid col-4 grid-square flex-sub"  >
+      <view class="padding-xs bg-img" style="background-image:url({{item.userInfo.avatarUrl}});" wx:for="{{playerList}}" wx:key >
+        <view class="cu-tag bg-red" wx:if="{{index==0}}">
            房主
         </view>
       </view>
-      <view class="padding-xs solids">
+      <view class="padding-xs solids" wx:if="{{playerList.length < roomSize}}">
         <text class='icon-add'></text>
       </view>
     </view>
   </view>
   <view class="padding-xl">
-    <button class='cu-btn block bg-blue margin-tb-sm lg' bindtap='exitRoom' >退出房间</button>
+    <button class='cu-btn block  margin-tb-sm lg' bindtap=''>准备游戏</button>
+    <button class='cu-btn block bg-blue margin-tb-sm lg' bindtap='exitRoom'>退出房间</button>
   </view>

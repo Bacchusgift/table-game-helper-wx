@@ -36,8 +36,8 @@
 
   <view class="cu-form-group margin-top">
     <view class='title'>房间号</view>
-    <input placeholder="请输入房间号" value="{{roomId}}" class='radius' confirm-type='go' type="number" name='input'></input>
+    <input placeholder="请输入房间号" value="{{roomId}}" class='radius' type="number" name='input' bindblur="setRoomId"></input>
   </view>
 <view class="padding-xl">
-<button class='cu-btn block bg-blue margin-tb-sm lg'>加入房间</button>
+<button class='cu-btn block bg-blue margin-tb-sm lg' bindtap='joinRoom'>加入房间</button>
 </view>

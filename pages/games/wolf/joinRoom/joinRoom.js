@@ -11,66 +11,38 @@ Page({
     CustomBar: app.globalData.CustomBar,
     userInfo: {
     },
-    roomId:''
+    roomId:'',
+    openId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
     this.setData({
-        userInfo: app.globalData.userInfo 
+        userInfo: app.globalData.userInfo,
+        openid: wx.getStorageSync('openid') 
     })
   },
- 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  joinRoom:function(e){
+    console.log(this.data.roomId)
+      wx.request({
+        url: app.api +'/room/joinRoom/'+ this.data.roomId+"?openId="+this.data.openid,
+        method:'GET',
+        success: res=>{
+            console.log("加入房间成功")
+            console.log(res)
+            wx.navigateTo({
+              url: '../waitJoin/waitJoin?roomId=' + this.data.roomId + '&roomSize=' + this.data.roomSize,
+            })
+        }
+      })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  setRoomId:function(e){
+    console.log(e.detail.value)
+      this.setData({
+         roomId:e.detail.value
+      })
+     
   }
 })

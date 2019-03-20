@@ -18,11 +18,13 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     index:null,
+    roomSize:null,
     picker:[6,7,8,9,10],
     list: [],
     god:false,
     syncVoice:true,
     userInfo:app.globalData.userInfo,
+    openid: wx.getStorageInfoSync('openid'),
     role:{
        'wolf':{
         title: '狼人',
@@ -76,8 +78,10 @@ Page({
     var role = this.data.role;
     console.log(e);
     this.setData({
-      index: e.detail.value
+      index: e.detail.value,
+      roomSize:this.data.picker[e.detail.value]
     })
+    console.log(this.data.roomSize)
     switch (this.data.index) {
       case '0':
       //6人局
@@ -157,31 +161,28 @@ Page({
         break
     }
   },
-  createRoom: function(e){
-    
-
+  createRoom: function(e){  
+    const openid = wx.getStorageSync('openid')
+    const userInfo = app.globalData.userInfo 
     wx.request({
       url: app.api +"/room/createRoom",
       method:"POST",
       data:{
-        size: this.data.index,
+        size: this.data.roomSize,
         gameId:1,
-        playerList:[
-          wx.getStorageInfoSync('openid')
-        ],
-        owner: wx.getStorageInfoSync('openid')
+        playerList:[],
+        owner: wx.getStorageSync('openid')
       },
       success:res=>{
-        console.log(res)
+        var roomId = res.data.data.roomId
+        var roomSize = this.data.roomSize
+        wx.navigateTo({
+          url: '../waitJoin/waitJoin?roomId='+roomId+'&roomSize='+roomSize,
+          success: function (res) { },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
       }
-    })
-
-
-    wx.navigateTo({
-      url: '../waitJoin/waitJoin',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
-    })
+    }) 
   }
 })

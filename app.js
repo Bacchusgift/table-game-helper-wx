@@ -10,8 +10,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if(res.code){
-          console.log("拿到了code: "+ res.code)
-          wx.request({
+            wx.request({
             url: this.api+'/user/wxlogin',
             data:{
               "js_code":res.code
@@ -22,6 +21,11 @@ App({
                 key: 'openid',
                 data: res.data.data.openid,
               })
+              const openid = wx.getStorageSync("openid")
+              if(openid){
+                this.globalData.openid = openid
+              }
+              this.globalData.openid = res.data.data.openid
               wx.setStorage({
                 key: 'userkey',
                 data: res.data.data.userkey,
@@ -44,18 +48,12 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-              wx.request({
-                url: this.api + '/user/setUserInfo/' + wx.getStorageSync("openid"),
-                method:"post",
-                data:res.userInfo,
-                success:res=>{
-                  console.log(res)
-                }
-              })
+              console.log("globalData.userInfo:")
               console.log(res)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
+                
                 this.userInfoReadyCallback(res)
               }
             }
@@ -78,7 +76,10 @@ App({
   },
   globalData: {
     userInfo: null,
-    
+    openid:""
   },
-  api: "http://localhost:10085"
+  // api: "http://192.168.11.112:10085",
+  // wsapi:"ws://192.168.11.112:10085/websocket/"
+  api: "http://192.168.0.105:10085",
+  wsapi:"ws://192.168.0.105:10085/websocket/"
 })

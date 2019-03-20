@@ -54,13 +54,28 @@ Page({
     
   },
   getUserInfo: function(e) {
-    console.log(e)
+    console.log("auth页面 - userInfo :")
+    console.log(e.detail.userInfo)
     if (e.detail.userInfo){
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
+      const openid = wx.getStorageSync("openid")
+      if(openid){
+        wx.request({
+          url: app.api + '/user/setUserInfo/' + openid,
+          method: "post",
+          data: e.detail.userInfo,
+          success: res => {
+            console.log(res)
+          }
+        })
+      } else {
+
+      }
+      // 存入userinfo到后端
       clearTimeout(timeout)
       this.setData({
         loadModal: true
@@ -72,7 +87,7 @@ Page({
         wx.redirectTo({
           url: '../games/games',
         })
-      }, 1000)
+      }, 2000)
     }else{
       //强制用户设置授权
       this.setData({
