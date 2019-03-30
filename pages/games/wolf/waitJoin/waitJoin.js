@@ -80,8 +80,28 @@ Page({
    */
   onUnload: function () {
     wx.showModal({
-      title: '',
-      content: '',
+      title: '注意',
+      content: '系统检测到你退出了房间'+this.data.roomId+',是否要重新连接?',
+      success:res=>{
+        wx.request({
+          url: app.api + '/room/joinRoom/' + this.data.roomId + "?openId=" + this.data.openid,
+          method: 'GET',
+          success: res => {
+            console.log("加入房间成功")
+            console.log(res)
+            if (res.data.err_code != 0) {
+              wx.showModal({
+                title: '错误',
+                content: res.data.err_msg,
+              })
+              return;
+            }
+            wx.navigateTo({
+              url: '../waitJoin/waitJoin?roomId=' + this.data.roomId + '&roomSize=' + this.data.roomSize,
+            })
+          }
+        })
+      }
     })
   },
   /**
@@ -93,12 +113,21 @@ Page({
   exitRoom:function(){
     console.log(this.data.roomId)
     wx.closeSocket()
-    // wx.request({
-    //   url: app.api+ '/room/exitRoom/'+ roomId,
-    // })
-    wx.redirectTo({
-      url: '../ready/ready',
+    wx.request({
+      url: app.api+ '/room/exitRoom/'+ this.data.roomId,
+      data:{
+        openid:this.data.openid
+      },
+      success:res=>{
+        if(res.data.err_code != 0){
+          this.showErrMsg(res.data.err_msg)
+        }
+      }
     })
+    wx.navigateBack({
+      delta: 2
+    })
+
   },
   sendSocketMessage: function(msg) {
     if(this.socketOpen) {
@@ -111,5 +140,11 @@ Page({
   },
   refreshData:function(){
       
+  },
+  showErrMsg:function(msg){
+    wx.showModal({
+      title: '错误',
+      content: msg,
+    })
   }
 })

@@ -32,6 +32,13 @@ Page({
         success: res=>{
             console.log("加入房间成功")
             console.log(res)
+            if(res.data.err_code != 0){
+              wx.showModal({
+                title: '错误',
+                content: res.data.err_msg,
+              })
+              return;
+            }
             wx.navigateTo({
               url: '../waitJoin/waitJoin?roomId=' + this.data.roomId + '&roomSize=' + this.data.roomSize,
             })
