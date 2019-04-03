@@ -54,6 +54,7 @@ Page({
            }
            wx.onSocketMessage(res => {
              //得到服务端回应，解析res
+             console.log(res.data)
              var playerList =  JSON.parse(res.data)
              console.log(playerList)
              this.setData({

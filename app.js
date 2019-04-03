@@ -78,8 +78,8 @@ App({
     userInfo: null,
     openid:""
   },
-  api: "http://192.168.11.112:10085",
-  wsapi:"ws://192.168.11.112:10085/websocket/"
+  api: "http://192.168.11.107:10085",
+  wsapi:"ws://192.168.11.107:10085/websocket/"
   // api: "http://192.168.0.105:10085",
   // wsapi:"ws://192.168.0.105:10085/websocket/"
 })
